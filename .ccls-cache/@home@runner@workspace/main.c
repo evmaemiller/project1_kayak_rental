@@ -38,8 +38,8 @@
     scanf ("%d", &days);
 
     printf("Enter hours: "); 
-  scanf("%d", &hours); // check if hours are valid
-    if (hours < 0 || hours >= 24) { 
+  scanf("%d", &hours); 
+    if (hours < 0 || hours >= 24) { // check if hours are valid
       printf("Invalid hours.\n");  
       return 0;
     }
