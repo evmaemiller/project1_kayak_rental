@@ -1,10 +1,10 @@
 //File: project1_kayak_rental.c
 //Author: Eva Mae Miller
 //Date: 06/22/2025
-//Description: This programs calculates the total charge for renting a kayak based off the type, number of hours, days, and specific rates. It prompts the user for information regarding the kayak and amount of time they rented it for. This programs then will display the total charge for the user. 
+//Description: This program calculates the total charge for renting a kayak based off the type, number of hours, days, and specific rates. It prompts the user for information regarding the kayak and amount of time they rented it for. This programs then will display the total charge for the user. 
 
 #include <stdio.h>
-   // define the prices of each type
+   // define the prices of each type of kayak
   #define solo_flat_fee 25
   #define solo_hourly_rate 10
   #define solo_max_perday 60
@@ -28,25 +28,25 @@
   int kayakType;
   scanf("%d",  &kayakType); //read the type
 
-  if (kayakType < 1 || kayakType > 4) { // check if it is valid
+  if (kayakType < 1 || kayakType > 4) { // check if it is a valid type
     printf("Invalid selection. Select from 1 to 4.\n"); 
     return 0; 
     }
 
-  int days, hours;  //getting the days and hours
+  int days, hours;  //get the amount of days and hours rented
     printf("Enter days: ");
     scanf ("%d", &days);
 
     printf("Enter hours: "); 
-  scanf("%d", &hours);
-    if (hours < 0 || hours >= 24) { // check if hours are valid
+  scanf("%d", &hours); // check if hours are valid
+    if (hours < 0 || hours >= 24) { 
       printf("Invalid hours.\n");  
       return 0;
     }
     int totalCharge = 0;
     int maxDailyRate = 0, hourlyRate = 0;
     int extraHours = hours - 2;
-
+// If it is rented for less than one day
     if (days == 0) {
         if (hours <= 2) {
             if (kayakType == 1)
@@ -58,7 +58,7 @@
             else
                 totalCharge = pedal_flat_fee;
         } else {
-            // If hours > 2
+            // If hours it is rented for more than 2 hours (flat free + houry rate) and capping the total with the max daily charge
             if (kayakType == 1) {
                 maxDailyRate = solo_max_perday;
                 hourlyRate = solo_hourly_rate;
@@ -86,7 +86,9 @@
             }
         }
     } else {
-        // If renting for days
+        // If renting for days (one or more)
+        // max daily rate + possible hourly charges based from the different kayak types
+        // capping the total with the max daily charge again
         if (kayakType == 1) {
             maxDailyRate = solo_max_perday;
             hourlyRate = solo_hourly_rate;
@@ -100,14 +102,14 @@
             maxDailyRate = pedal_max_perday;
             hourlyRate = pedal_hourly_rate;
         }
-
+        // calculate addition hours and cap it with the max daily rate
         totalCharge = days * maxDailyRate;
         int extra = hours * hourlyRate;
         if (extra > maxDailyRate)
             extra = maxDailyRate;
         totalCharge += extra;
     }
-
+    // print the total charge
     printf("Charge($): %d\n", totalCharge);
     return 0;
   }
